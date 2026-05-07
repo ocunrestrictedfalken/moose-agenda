@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/api/events/:id", "destination": "/api/events" },
+    { "source": "/api/todos/:id",  "destination": "/api/todos" }
+  ]
+}
