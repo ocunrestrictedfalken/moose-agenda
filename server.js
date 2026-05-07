@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
@@ -12,6 +13,21 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+function requireAuth(req, res) {
+  const token = req.headers['x-auth-token'];
+  if (!process.env.AUTH_PASSWORD || token !== process.env.AUTH_PASSWORD) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return false;
+  }
+  return true;
+}
+
+app.post('/api/auth', (req, res) => {
+  const { password } = req.body || {};
+  if (password === process.env.AUTH_PASSWORD) return res.json({ ok: true });
+  return res.status(401).json({ error: 'Wrong password' });
+});
+
 function readJSON(file) {
   const p = path.join(DATA_DIR, file);
   if (!fs.existsSync(p)) return [];
@@ -25,10 +41,12 @@ function writeJSON(file, data) {
 // --- Events ---
 
 app.get('/api/events', (req, res) => {
+  if (!requireAuth(req, res)) return;
   res.json(readJSON('events.json'));
 });
 
 app.post('/api/events', (req, res) => {
+  if (!requireAuth(req, res)) return;
   const events = readJSON('events.json');
   const event = {
     id: uuidv4(),
@@ -47,6 +65,7 @@ app.post('/api/events', (req, res) => {
 });
 
 app.put('/api/events/:id', (req, res) => {
+  if (!requireAuth(req, res)) return;
   const events = readJSON('events.json');
   const idx = events.findIndex(e => e.id === req.params.id);
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
@@ -56,6 +75,7 @@ app.put('/api/events/:id', (req, res) => {
 });
 
 app.delete('/api/events/:id', (req, res) => {
+  if (!requireAuth(req, res)) return;
   let events = readJSON('events.json');
   events = events.filter(e => e.id !== req.params.id);
   writeJSON('events.json', events);
@@ -65,10 +85,12 @@ app.delete('/api/events/:id', (req, res) => {
 // --- Todos ---
 
 app.get('/api/todos', (req, res) => {
+  if (!requireAuth(req, res)) return;
   res.json(readJSON('todos.json'));
 });
 
 app.post('/api/todos', (req, res) => {
+  if (!requireAuth(req, res)) return;
   const todos = readJSON('todos.json');
   const todo = {
     id: uuidv4(),
@@ -85,6 +107,7 @@ app.post('/api/todos', (req, res) => {
 });
 
 app.put('/api/todos/:id', (req, res) => {
+  if (!requireAuth(req, res)) return;
   const todos = readJSON('todos.json');
   const idx = todos.findIndex(t => t.id === req.params.id);
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
@@ -94,6 +117,7 @@ app.put('/api/todos/:id', (req, res) => {
 });
 
 app.delete('/api/todos/:id', (req, res) => {
+  if (!requireAuth(req, res)) return;
   let todos = readJSON('todos.json');
   todos = todos.filter(t => t.id !== req.params.id);
   writeJSON('todos.json', todos);

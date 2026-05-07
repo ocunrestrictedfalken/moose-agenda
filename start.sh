@@ -1,18 +1,25 @@
 #!/bin/bash
-# MooseAgenda startup — run this to start server + tunnel
-cd "$(dirname "$0")"
+# MooseAgenda startup — run to start server + tunnel
+DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Kill any previous instances
-pkill -f "node server.js" 2>/dev/null
-pkill -f "cloudflared tunnel --url http://localhost:3747" 2>/dev/null
+pkill -f "node $DIR/server.js" 2>/dev/null
+pkill -f "serveo.net" 2>/dev/null
 sleep 1
 
-node server.js &
+# Start server
+node "$DIR/server.js" &
 sleep 2
-cloudflared tunnel --url http://localhost:3747 > /tmp/cf-moose.log 2>&1 &
-sleep 6
 
-URL=$(grep -o 'https://[a-z0-9-]*\.trycloudflare\.com' /tmp/cf-moose.log | tail -1)
+# Start tunnel with dedicated key (stable URL)
+ssh -o StrictHostKeyChecking=no \
+    -i "$DIR/.serveo_key" \
+    -R 80:localhost:3747 serveo.net > /tmp/serveo-moose.log 2>&1 &
+sleep 8
+
+URL=$(grep -o 'https://[^ ]*serveousercontent\.com' /tmp/serveo-moose.log | head -1)
+echo ""
 echo "🦌 MooseAgenda is live!"
 echo "   Local:  http://localhost:3747"
 echo "   Public: $URL"
+echo ""
