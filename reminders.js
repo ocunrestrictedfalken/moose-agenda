@@ -26,10 +26,13 @@ function writeJSON(p, data) {
 function sendTelegram(msg) {
   const escaped = msg.replace(/'/g, "'\\''");
   try {
-    execSync(`openclaw send telegram 7500646638 '${escaped}'`, { stdio: 'pipe' });
+    execSync(
+      `openclaw agent --channel telegram --to 7500646638 --deliver --message '${escaped}'`,
+      { stdio: 'pipe', timeout: 30000 }
+    );
     console.log('[reminder] sent:', msg.slice(0, 60));
   } catch (e) {
-    console.error('[reminder] send failed:', e.message);
+    console.error('[reminder] send failed:', e.message.slice(0, 120));
   }
 }
 
