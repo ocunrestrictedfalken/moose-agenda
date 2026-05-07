@@ -63,7 +63,20 @@ function buildMessage(event, offsetKey) {
   return `🦌 *Reminder* — ${when}!\n\n*${event.name}*\n📅 ${fmtDate(event.date)}${timeStr}${locStr}${noteStr}`;
 }
 
+function checkNewUrl() {
+  const urlFile = '/tmp/moose-new-url.txt';
+  if (!fs.existsSync(urlFile)) return;
+  try {
+    const url = fs.readFileSync(urlFile, 'utf8').trim();
+    fs.unlinkSync(urlFile);
+    if (url) sendTelegram(`🦌 MooseAgenda is live!\n\n👉 ${url}\n\nPassword is your usual one. Bookmark this on your phone!`);
+  } catch (e) {
+    console.error('[reminders] url notify failed:', e.message);
+  }
+}
+
 function main() {
+  checkNewUrl();
   const events = readJSON(EVENTS_FILE);
   const fired  = readJSON(FIRED_FILE);
   let changed  = false;
