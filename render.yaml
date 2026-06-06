@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: moose-agenda
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: AUTH_PASSWORD
+        sync: false
+      - key: GH_TOKEN
+        sync: false
