@@ -21,7 +21,7 @@
     "id": "8345ee70-5eb1-40c0-8ef6-6155dd527a6c",
     "text": "Pay Con Edison bill",
     "priority": "high-ground",
-    "dueDate": null,
+    "dueDate": "2026-06-08",
     "eventId": null,
     "done": false,
     "createdAt": "2026-06-08T06:45:04.563Z"
