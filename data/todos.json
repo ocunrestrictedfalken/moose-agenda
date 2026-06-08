@@ -11,7 +11,7 @@
   {
     "id": "bc360257-5aeb-4938-ab1f-f69d6fd5df4d",
     "text": "Submit insurance claims",
-    "priority": "moose",
+    "priority": "high-ground",
     "dueDate": null,
     "eventId": null,
     "done": false,
@@ -20,7 +20,7 @@
   {
     "id": "8345ee70-5eb1-40c0-8ef6-6155dd527a6c",
     "text": "Pay Con Edison bill",
-    "priority": "moose",
+    "priority": "high-ground",
     "dueDate": null,
     "eventId": null,
     "done": false,
