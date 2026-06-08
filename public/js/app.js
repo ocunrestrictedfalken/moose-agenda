@@ -120,7 +120,7 @@ function renderDashboard() {
 
   const incompleteTodos = todos
     .filter(t => !t.done)
-    .sort((a,b) => PRIORITY_META[a.priority].order - PRIORITY_META[b.priority].order)
+    .sort((a,b) => (PRIORITY_META[a.priority]?.order ?? 99) - (PRIORITY_META[b.priority]?.order ?? 99))
     .slice(0, 8);
 
   const todayEl = document.getElementById('todayEvents');
@@ -196,7 +196,7 @@ function renderFullTodos() {
   if (todoFilter !== 'all') filtered = todos.filter(t => t.priority === todoFilter);
   const sorted = [...filtered].sort((a,b) => {
     if (a.done !== b.done) return a.done ? 1 : -1;
-    return PRIORITY_META[a.priority].order - PRIORITY_META[b.priority].order;
+    return (PRIORITY_META[a.priority]?.order ?? 99) - (PRIORITY_META[b.priority]?.order ?? 99);
   });
   const el = document.getElementById('fullTodoList');
   el.innerHTML = '';
