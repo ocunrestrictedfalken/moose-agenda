@@ -11,8 +11,8 @@
   {
     "id": "bc360257-5aeb-4938-ab1f-f69d6fd5df4d",
     "text": "Submit insurance claims",
-    "priority": "high-ground",
-    "dueDate": null,
+    "priority": "on-fire",
+    "dueDate": "2026-06-08",
     "eventId": null,
     "done": false,
     "createdAt": "2026-06-08T06:45:03.708Z"
