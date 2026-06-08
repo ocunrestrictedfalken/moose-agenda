@@ -16,11 +16,11 @@
     "id": "2a072ad3-38e6-46bf-935f-3377eab3057e",
     "name": "submit insurance claims",
     "date": "2026-06-08",
-    "time": "17:00",
+    "time": "17:20",
     "location": null,
     "notes": null,
     "reminders": [
-      "1h"
+      "30m"
     ],
     "recurring": null,
     "createdAt": "2026-06-08T20:19:48.838Z"
