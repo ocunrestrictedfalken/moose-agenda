@@ -52,5 +52,14 @@
     "eventId": null,
     "done": false,
     "createdAt": "2026-08-22T16:24:13.626Z"
+  },
+  {
+    "id": "52a94419-05fb-45f5-b640-fd277e6e400e",
+    "text": "Setup FC workspace",
+    "priority": "grazing",
+    "dueDate": null,
+    "eventId": null,
+    "done": false,
+    "createdAt": "2026-08-22T16:24:33.523Z"
   }
 ]
