@@ -106,5 +106,14 @@
     "eventId": null,
     "done": false,
     "createdAt": "2026-08-22T16:26:10.151Z"
+  },
+  {
+    "id": "6856bbe2-90eb-4408-8b77-da8dfaff9585",
+    "text": "Back up / Reinstall qubes",
+    "priority": "grazing",
+    "dueDate": null,
+    "eventId": null,
+    "done": false,
+    "createdAt": "2026-08-22T16:26:47.819Z"
   }
 ]
